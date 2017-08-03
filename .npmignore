@@ -1,0 +1,12 @@
+node_modules
+docs
+.svn
+.git
+.DS_Store
+npm-debug.log
+TODO.md
+test
+example
+/_lib
+package-lock.json
+__TODO
