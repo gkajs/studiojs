@@ -21,13 +21,19 @@ class Frames extends Event {
         this.fps = fps;
 
         this.frames = data.frames;
+
+        if (typeof data.images[0] === "string") {
+            loadImage(this.images, (type, sources) => {
+                if (type === 'complete') {
+                    this.sources = this.formate(sources);
+                    this.isReady = true;
+                }
+            }, data.images_prefix);
+        } else {
+            this.sources = this.formate(data.images);
+            this.isReady = true;
+        }
         
-        loadImage(this.images, (type, sources) => {
-            if (type === 'complete') {
-                this.sources = this.formate(sources);
-                this.isReady = true;
-            }
-        }, data.images_prefix);
     }
 
     formate(sources) {
