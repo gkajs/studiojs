@@ -76,7 +76,7 @@
                                 console.log("Frames");
                             });
 
-        var materialJump      = new Frames(data, "jump");
+        var materialJump   = new Frames(data, "jump");
         var materialDie    = new Frames(data, "die");
 
         var materialRoad   = new Frames(dataRoad, "road");
@@ -179,8 +179,8 @@
 
             // track1.pause();
 
-            // 清除 track_1 当前播放
             track1.curM.clear();
+            
             track1
             .add(materialJump, 0)
             .onStart(function(curM){
