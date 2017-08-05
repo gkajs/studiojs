@@ -10,8 +10,8 @@ class Material extends Event {
         this.material = material || {};
         this.fps = this.material.fps || 60;
 
-        this.animations = Material.formateAni(this.material.animations || []);
-        this.animationsOrigin = Material.formateAniObj(this.material.animationsOrigin || {});
+        this.animation = Material.formateAni(this.material.animation || []);
+        this.animations = Material.formateAniObj(this.material.animations || {});
 
         this.times = 0;
     }
@@ -44,7 +44,7 @@ class Material extends Event {
 
     clear(type, callback){
         this.trigger("clear", this);
-        this.animations = []; // 制空则跳过
+        this.animation = []; // 制空则跳过
         return this;
     }
 }

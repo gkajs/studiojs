@@ -1,4 +1,5 @@
 import Event from  './event.js'
+import { isArray } from  './utils.js'
 
 class Stage extends Event {
     constructor(canvas) {
@@ -10,7 +11,7 @@ class Stage extends Event {
     }
 
     add(track){
-        var tracks = Object.prototype.toString.call(track) === "[object Array]"? track: [track];
+        var tracks = isArray(track)? track: [track];
         tracks.map(item => {
             var canvas = document.createElement('canvas');
                 canvas.width  = this.canvas.width;

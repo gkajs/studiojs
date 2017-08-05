@@ -1,114 +1,98 @@
 import Event from  './event.js'
 import loadImage from  './loadImage.js'
-
-function isArray(o){
-    return Object.prototype.toString.call(o)=='[object Array]';
-}
+import { isArray } from  './utils.js'
 
 class Frames extends Event {
-    constructor(data, animations_type, fps) {
-        super()
+    constructor(data, type, fps) {
+        super();
 
-        this.images_prefix = data.images_prefix;
-        this.images = data.images;
+        var {
+            imgPrefix,
+            images,
+            animations,
+            frames,
+        } = data;
 
-        this.listeners = [];
-        
-        this.animationsOrigin = data.animations;
-
-        this.animations = (data['animations'] && data['animations'][animations_type]) || [`0-${this.images.length - 1}`];
-        
+        this.animations = animations;
+        this.animation = (animations && animations[type]) || [`0-${images.length - 1}`];
         this.fps = fps;
 
-        this.frames = data.frames;
+        this.listeners = [];
 
-        if (typeof data.images[0] === "string") {
-            loadImage(this.images, (type, sources) => {
+        if (typeof images[0] === "string") {
+            loadImage(images, (type, sources) => {
                 if (type === 'complete') {
-                    this.sources = this.formate(sources);
+                    this.sources = this.formate(sources, frames);
                     this.isReady = true;
                 }
-            }, data.images_prefix);
+            }, imgPrefix);
         } else {
-            this.sources = this.formate(data.images);
+            this.sources = this.formate(images, frames);
             this.isReady = true;
         }
-        
+
     }
 
-    formate(sources) {
-        var _sources = [], frames = this.frames;
+    formate(images, frames = {}) {
+
+        var sources = [];
 
         if (isArray(frames)) {
-            // 合图，每帧宽高不一样
 
-            for (var i = 0, _f; i < frames.length; i++) {
-                _f = frames[i];
-                
-                if (isArray(_f)) {
-                    _sources.push({
-                        source: sources[_f[6] || 0],
-                        loc: {
-                            x: _f[0] || 0,
-                            y: _f[1] || 0,
-                            offX: _f[4] || 0,
-                            offY: _f[5] || 0,
-                        },
-                        width: _f[2],
-                        height: _f[3],
-                    });
-                } else {
-                    _sources.push({
-                        source: sources[_f.index || 0],
-                        loc: {
-                            x: _f.x || 0,
-                            y: _f.y || 0,
-                            offX: _f.offX || 0,
-                            offY: _f.offY || 0,
-                        },
-                        width: _f.width,
-                        height: _f.height,
-                    });
-                }
+            for (var i = 0, f; i < frames.length; i++) {
+                f = frames[i];
+                sources.push({
+                    source: images[f[6] || 0],
+                    loc: {
+                        x: f[0] || 0,
+                        y: f[1] || 0,
+                        offX: f[4] || 0,
+                        offY: f[5] || 0,
+                    },
+                    width: f[2],
+                    height: f[3],
+                });
             }
+
         } else {
 
             // 单图，或 设置 frame: {width: height:} 的元素大小一致的合图
 
-            var f_w = frames && frames.width,
-                f_h = frames && frames.height;
+            var f_w = frames.width,
+                f_h = frames.height;
 
-            for (var i = 0, source; i < sources.length; i++) {
-                source = sources[i];
+            for (var i = 0, s; i < images.length; i++) {
+                s = images[i];
 
-                var s_w = source.width,
-                    s_h = source.height;
+                var s_w = s.width,
+                    s_h = s.height;
 
                 var w = f_w? f_w: s_w,
-                    h =  f_h? f_h: s_h;
+                    h = f_h? f_h: s_h;
 
                 var xSize = s_w / w,
                     ySize = s_h / h;
 
                 for (var k = 0; k < ySize; k++) {
                     for (var j = 0; j < xSize; j++) {
-                       _sources.push({
-                            source: source,
+                       sources.push({
+                            source: s,
                             loc: {
                                 x: j * w,
                                 y: k * h,
-                                offX: frames && frames.offX || 0,
-                                offY: frames && frames.offY || 0,
+                                offX: frames.offX || 0,
+                                offY: frames.offY || 0,
                             },
                             width: w,
                             height: h,
                         });
                     }
                 }
+
             }
         }
 
-        return _sources;
+        return sources;
     }
 }
 

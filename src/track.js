@@ -3,12 +3,10 @@ import Material from './material.js'
 class Track {
     constructor(zIndex) {
         this._id = 0;
-        this.isEnable = true;
-
         this.zIndex = zIndex || 0;
+        this.isEnable = true;
         this.materials = [];
         this.curM = null;
-
     }
 
     // index 基于未播放的内容队列
@@ -35,7 +33,7 @@ class Track {
         }
         var actIndex = ++curM.actIndex;
         
-        if (actIndex > curM.animations.length - 1) {
+        if (actIndex > curM.animation.length - 1) {
 
             var next = this.getNext();
             // console.log("next", this.curM, next)
@@ -78,7 +76,7 @@ class Track {
 
             if (prev && prev.material.isReady) {
                 this.curM = prev;
-                this.curM.actIndex = this.curM.animations.length - 1;
+                this.curM.actIndex = this.curM.animation.length - 1;
                 return this.draw(this.curM);
             } else {
                 ++curM.actIndex;
@@ -94,7 +92,7 @@ class Track {
         var _index = 0;
         for (var i = 0, materials = this.materials, material, len = materials.length; i < len; i++) {
             material = materials[i];
-            var l = material.animations.length;
+            var l = material.animation.length;
             _index += l;
 
             if (index <= _index - 1) {
@@ -110,28 +108,28 @@ class Track {
         var curM = m;
         var actIndex = i !== undefined? i: curM.actIndex;
 
-        var animations = curM.animations;
-        var animation = animations[actIndex];
+        var animation = curM.animation;
+        var acitveOne = animation[actIndex];
 
-        if (isNaN(animation)) {
-            var arr = curM.animationsOrigin[animation];
+        if (isNaN(acitveOne)) {
+            var arr = curM.animations[acitveOne];
             // console.log(animation, arr)
-            arr && animations.splice(actIndex, 1, ...arr);
-            animation = animations[actIndex];
+            arr && animation.splice(actIndex, 1, ...arr);
+            acitveOne = animation[actIndex];
         }
 
-        if (animation === undefined) { return; }
+        if (acitveOne === undefined) { return; }
 
         var curMM = curM.material;
         if (actIndex === 0) {
             curM.trigger("start", curM) || curMM.trigger("start", curM);
-        } else if (actIndex === curM.animations.length - 1){
+        } else if (actIndex === curM.animation.length - 1){
             curM.trigger("end", curM) || curMM.trigger("end", curM);
         } else {
             curM.trigger("frame", actIndex, curM) || curMM.trigger("frame", curM);
         }
 
-        var obj = curMM.sources[animation];
+        var obj = curMM.sources[acitveOne];
         var source = obj.source,
             loc = obj.loc;
 
@@ -198,7 +196,7 @@ class Track {
     getLen(type) {
         if (type === "frames") {
             return this.materials.reduce((a, b) => {
-                return (a && a.animations.length || 0) +  (b && b.animations.length || 0);
+                return (a && a.animation.length || 0) +  (b && b.animation.length || 0);
             }, 0);
         } else if (type === "materials") {
             return this.materials.length;
@@ -211,7 +209,7 @@ class Track {
         for (var i = 0, len = materials.length; i < len; i++) {
             if (materials[i].id == this.curM.id){
                 for (var j = 0; j < i; j++) {
-                    var l = materials[i].animations.length;
+                    var l = materials[i].animation.length;
                     _index += l;
                 }
                 // console.log(j, i, _index, materials[i].actIndex, _index += materials[i].actIndex)
