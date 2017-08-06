@@ -1,5 +1,5 @@
 import Event from  './event.js'
-import { isArray } from  './utils.js'
+import { isArray, createCanvas } from  './utils.js'
 
 class Stage extends Event {
     constructor(canvas) {
@@ -13,12 +13,8 @@ class Stage extends Event {
     add(track){
         var tracks = isArray(track)? track: [track];
         tracks.map(item => {
-            var canvas = document.createElement('canvas');
-                canvas.width  = this.canvas.width;
-                canvas.height = this.canvas.height;
-                canvas.ctx = canvas.getContext('2d');
-
-            item.canvas = canvas;
+            // 为 track 重置一个 canvas，不会具体画出来
+            item.canvas = createCanvas(this.canvas.width, this.canvas.height);
             item.stage = this;
             this.tracks.push(item);
         })
