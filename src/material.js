@@ -1,13 +1,14 @@
 import Event from  './event.js'
 
 class Material extends Event {
-    constructor(track, id, material) {
-        super()
+    constructor(track, id, material = {}) {
+        super();
 
-        this.id = id;
         this.track = track;
+        this.id = id;
+        this.material = material;
+
         this.actIndex = -1;
-        this.material = material || {};
         this.fps = this.material.fps || 60;
 
         this.animation = Material.formateAni(this.material.animation || []);
@@ -17,7 +18,9 @@ class Material extends Event {
     }
 
     static formateAni(anis) {
+
         var res = [], arr, start, end;
+
         for (var i = 0; i < anis.length; i++) {
             arr = String(anis[i]).split("-"),
             start = arr[0],
@@ -31,15 +34,19 @@ class Material extends Event {
                 }
             }
         }
-        return res
+
+        return res;
     }
 
     static formateAniObj(obj) {
+
         var res = {};
+
         for(var key in obj) {
             res[key] = Material.formateAni(obj[key]);
         }
-        return res
+
+        return res;
     }
 
     clear(type, callback){
@@ -48,4 +55,5 @@ class Material extends Event {
         return this;
     }
 }
+
 export default Material
