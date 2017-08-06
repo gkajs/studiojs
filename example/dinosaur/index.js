@@ -73,10 +73,9 @@
                                 // curM.flip = "horizintal";
                             })
                             .onFrame(function(curM){
-                                console.log("Frames");
+                                // console.log("Frames");
                             });
 
-        var materialJump   = new Frames(data, "jump");
         var materialDie    = new Frames(data, "die");
 
         var materialRoad   = new Frames(dataRoad, "road");
@@ -84,7 +83,10 @@
         var materialCloud  = new Frames(dataCloud, "move");
         var materialThorns = new Frames(dataThorns, "thorns2");
 
-        track1.add(material).onFrame(function(curM){ console.log("material Frames") });
+        track1.add(material)
+            .onFrame(function(curM){
+                // console.log("material Frames") 
+            });
 
         track2
             .add(materialRoad)
@@ -147,7 +149,8 @@
             score = 0;
 
         function check() {
-            var isHit = checkHit(track1.canvas, track1.canvas._rect, track5.canvas, track5.canvas._rect, 10);
+            if(!track1.curM || !track5.curM) { return }
+            var isHit = checkHit(track1.curM.canvas, track1.curM.canvas._rect, track5.curM.canvas, track5.curM.canvas._rect, 10);
             if (isHit) {
                 track1.curM.clear();
                 track1.add(materialDie, 0).onStart(function(curM){
@@ -181,15 +184,18 @@
 
             track1.curM.clear();
             
+            var materialJump   = new Frames(data, "jump");
+
             track1
             .add(materialJump, 0)
             .onStart(function(curM){
                 curM.x = 20;
                 curM.y = 166;
                 curM._hasJump = false
+                console.log("onStart")
             })
             .onFrame(function(i, curM){
-
+                // console.log(curM.y)
                 if (!curM._hasJump) {
                     curM.y -= 4;
                     if (curM.y < 60) {
@@ -201,7 +207,16 @@
                     curM.y += 4 ;
                     if (curM.y === 166) {
                         curM.clear();
-                        track1.add(material);
+                        var material111 = new Frames(data, "run", 10)
+                            .onStart(function(curM){
+                                curM.x = 20;
+                                curM.y = 166;
+                                // curM.flip = "horizintal";
+                            })
+                            .onFrame(function(curM){
+                                // console.log("Frames");
+                            });
+                        track1.add(material111, 0);
                     }
                 }
                 
