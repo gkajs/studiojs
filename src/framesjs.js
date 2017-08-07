@@ -44,11 +44,9 @@ class Frames extends Event {
     }
 
     formate(images, frames = {}) {
-
         var sources = [];
 
         if (isArray(frames)) {
-
             for (var i = 0, f; i < frames.length; i++) {
                 f = frames[i];
                 sources.push({
@@ -67,7 +65,6 @@ class Frames extends Event {
         } else {
 
             // 单图，或 设置 frame: {width: height:} 的元素大小一致的合图
-
             var f_w = frames.width,
                 f_h = frames.height;
 
@@ -169,8 +166,6 @@ class Frames extends Event {
 
         if (isNaN(acitveOne)) {
             var arr = curM.animations[acitveOne];
-            // console.log(acitveOne, curM.animations)
-            // console.log(animation, arr)
             arr && animation.splice(actIndex, 1, ...arr);
             acitveOne = animation[actIndex];
         }
