@@ -1,81 +1,60 @@
-(function (argument) {
-    var Stage = studiojs.Stage,
-        Trackjs = studiojs.Track,
-        Framesjs = studiojs.Frames,
-        loadImage = studiojs.loadImage;
+var Frames = studiojs.Frames;
+var canvas = document.getElementById('myCanvas');
 
-    var canvas = document.getElementById('myCanvas');
-    var canvas2 = document.getElementById('myCanvas2');
-    var canvas3 = document.getElementById('myCanvas3');
-    var stage = new Stage(canvas);
-    var track = new Trackjs(0,canvas3);
-    // var track2 = new Trackjs();
+var img = new Image();
 
-    stage.add(track);
-    // stage.add(track2);
-    
-    function handleComplete(images) {
-        // var animationData = {
-        //     images: images,
-        //     frames: data.frames,
-        //     animations: {
-        //         walk: ["0-" + (data.frames.length - 1), "walk"]
-        //     }
-        // };
+img.onload = () => {
 
-        var animationData = {
-            images: images,
-            frames: data.frames,
-            animations: {
-                walk: ["0-" + (data.frames.length - 1)]
-            }
-        };
-
-        var animationData2 = {
-            images: images,
-            frames: data.frames,
-            animations: {
-                walk: ["0-8"]
-            }
-        };
-
-        var material = new Framesjs(animationData, "walk", 20, canvas2);
-        var material2 = new Framesjs(animationData, "walk", 20, canvas2);
-        var material3 = new Framesjs(animationData2, "walk", 20, canvas2);
-
-        // track.add(material);
-        track.add(material2);
-        track.add(material3);
-
-        // material.x = 20;
-        // track2.add(material);
-
-        var isEnd = false;
-        function tick(){
-            // material.update();
-            // track.update();
-            stage.update();
-
-            if (!isEnd) {
-                requestAnimationFrame(tick);
-            }
+    var animationData = {
+        images: [img],
+        frames: [
+            // x, y, width, height, offX, offY ,imageIndex
+            [355, 0, 86, 282, 34, 9],
+            [853, 276, 79, 276, 37, 9],
+            [853, 552, 79, 276, 35, 7],
+            [0, 569, 81, 274, 31, 7],
+            [771, 275, 82, 273, 29, 6],
+            [771, 0, 82, 275, 30, 5],
+            [526, 283, 82, 280, 34, 4],
+            [932, 0, 77, 281, 39, 5],
+            [691, 0, 80, 283, 41, 5],
+            [526, 0, 82, 283, 43, 6],
+            [441, 280, 83, 283, 44, 7],
+            [355, 282, 85, 282, 41, 8],
+            [441, 0, 85, 280, 39, 9 ],
+            [608, 276, 82, 277, 38, 11],
+            [691, 283, 80, 277, 37, 11],
+            [932, 281, 76, 277, 37, 10],
+            [932, 558, 74, 277, 38, 9],
+            [853, 0, 79, 276, 40, 8],
+            [608, 0, 83, 276, 41, 7],
+            [252, 274, 93, 276, 35, 6],
+            [252, 0, 103, 274, 29, 5],
+            [127, 279, 117, 277, 20, 5],
+            [127, 0, 125, 279, 16, 5],
+            [0, 0, 127, 283, 15, 5],
+            [0, 283, 123, 286, 17, 5]
+        ],
+        animations: {
+            walk: ["0-24"]
         }
+    };
 
-        requestAnimationFrame(tick);
-        setTimeout(function(){
-            isEnd = true;
-            function tickPrev(){
-                stage.prev();
-                requestAnimationFrame(tickPrev);
-            }
-            requestAnimationFrame(tickPrev);
-        }, 3000)
-    }
+    // data, animation, count, canvas
+    var material = new Frames(animationData, "walk", 20, canvas);
 
-    loadImage([data.file].map(name => "img/" + name), (type, images) => {
-        if (type === 'complete') {
-            handleComplete(images);
-        }
-    });
-    
-})()
+    material
+        .onFrame(function(i){
+            console.log("frame");
+        })
+        .onEnd(function(){
+            console.log("end");
+        });
+
+    setInterval(()=> {
+        material.update();
+    }, 16);
+
+};
+
+img.src = "img/sprites.png";

@@ -1,15 +1,96 @@
 frames
 frames 单个帧动画，能够独立播放
 
+# Function
 update();
 prev();
+
+# Event
 on();
+
+onClear: "clear",
+onReady: "ready",
+onStart: "start",
+onFrame: "frame",
+onEnd: "end",
+
+----------------
+
+# Ticker (raf)
+
+``` js
+
+var ticker = new Ticker(60); // 默认 60 fps
+
+ticker.add(frames);
+
+ticker.play();
+ticker.pause();
+ticker.reset();
+```
+
+
+### framerate
+
+material 默认执行1次，才执行一次next，把时间控制交给 ticker或setInterval
+如有多个material需要差异化，material1 是 20fps，material2 是 10 fps，
+那么 material1 设置为 3， material 设置为 6；
+计时器为 60 fps
+
+setInterval(function(){
+    material.next(); // material 为1，执行1次，才执行一次next 60fps
+}, 1000 / 60) // 60 fps
+
+setInterval(function(){
+    material.next(); // material 为 2，执行1次，才执行一次next 30fps
+}, 1000 / 60) // 60 fps
+
+setInterval(function(){
+    material.next(); // 执行10次，才执行一次next 6fps
+}, 1000 / 60) // 60 fps
+
+//// maybe end here
+
+fps 10
+1s 执行 10 次
+
+fps2 60
+1s 执行 60 次
+
+// 帧播放率，每一帧时间为 1000 / framerate
+// var material = new Frames(data, "run", 10)
+// material 中的 10，表示执行10次才执行一次next,并非fps
+// ticker 的 fps 20 / material 10  = 实际fps 2
+
+ticketFPS 20 = 1000 / 20 * 10 ms 执行一次 next;
+frames 的fps = 1000 / (1000 / 20 * 10) = 20 / 10 = 2;
+
+setInterval(function(){
+    material.next(); // 执行10次，才执行一次next 2fps 1000 / 20 * 10
+}, 1000 / 20) // 20 fps
+
+setInterval(function(){
+    setInterval(function(){
+        material.next();
+    }, 1000 / fps2)
+}, 1000 / fps1)
+
+ticketFPS 60 = 1000 / 60 执行一次 next; 
+ticketFPS 20 = 1000 / 20 ms 执行一次 next; 
+
+ticketFPS 60 = 1000 / 60 * 10 执行一次 next; 6fps
+
+ticketFPS 20 = 1000 / 20 * 10 ms 执行一次 next;
+frames 的fps = 1000 / (1000 / 20 * 10) = 20 / 10 = 2;
+
+每 1000 / 10 ms 播放一帧
+每 1000 / 60 ms 播放一帧 
+
+-----
 
 track 轨道，可以包含多个 frames，顺序播放
 
 stage 能够包含多条track，并将其合并渲染
-
-
 
 
 studiojs
