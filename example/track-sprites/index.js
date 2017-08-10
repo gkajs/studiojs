@@ -43,8 +43,8 @@ img.onload = () => {
         }
     };
 
-    var material1 = new Frame(data, "forward", 20);
-    var material2 = new Frame(data, "back", 20);
+    var material1 = new Frame(data, "forward", 3);
+    var material2 = new Frame(data, "back", 3);
 
     material1
         .onFrame(function(i){

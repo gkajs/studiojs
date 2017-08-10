@@ -48,8 +48,8 @@ img.onload = () => {
         }
     };
 
-    var material1 = new Frame(data, "forward", 20);
-    var material2 = new Frame(data, "back", 20);
+    var material1 = new Frame(data, "forward", 3);
+    var material2 = new Frame(data, "back", 3);
 
     material1
         .onFrame(function(i){
@@ -64,8 +64,8 @@ img.onload = () => {
     track1.add(material1);
     track1.add(material2);
 
-    var material3 = new Frame(data, "forward", 20);
-    var material4 = new Frame(data, "back", 20);
+    var material3 = new Frame(data, "forward", 3);
+    var material4 = new Frame(data, "back", 3);
 
     material3.x = 40;
     material4.x = 40;
