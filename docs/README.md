@@ -13,8 +13,6 @@
 
 # studiojs
 
----
-
 [studiojs](https://github.com/joeyguo/studiojs) 是一款专注于帧动画的、简单的、渐进式的 2D 渲染引擎。
 
 主要包含类： Frame、Track、Stage。 可独立使用、组合使用。
@@ -38,11 +36,12 @@ var data = {
         // etc.
     ],
     animations: {
-        walk: ["0-24"]
+        forward: ["0-24"],
+        back: ["24-0"]
     }
 };
 
-var material = new Frame(data, "walk", 20, canvas);
+var material = new Frame(data, "forward", 20, canvas);
 
 setInterval(()=> {
     material.update();
@@ -57,7 +56,7 @@ setInterval(()=> {
 ```js
 // data, animation, times, canvas
 
-var material = new Frame(data, "walk", 20, canvas);
+var material = new Frame(data, "forward", 20, canvas);
 ```
 
 ### 1. data
@@ -74,7 +73,7 @@ var data = {
         // etc.
     ],
     animations: {
-        walk: ["0-24"]
+        forward: ["0-24"]
     }
 };
 ```
@@ -96,11 +95,11 @@ var data = {
 
     可选，表示播放的队列，默认播放队列为 images 顺序播放
 
-    自定义播放队列，{ 播放队列名: 播放队列的frames的索引数组 }，如下表示 walk 队列播放 frames 索引为 0，1，2 的帧。
+    自定义播放队列，{ 播放队列名: 播放队列的frames的索引数组 }，如下表示 forward 队列播放 frames 索引为 0，1，2 的帧。
 
     ```js
     animations: {
-        walk: [0, 1, 2]
+        forward: [0, 1, 2]
     }
     ```
 
@@ -108,7 +107,7 @@ var data = {
 
     ```js
     animations: {
-        walk: ["0-24"]
+        forward: ["0-24"]
     }
     ```
 
@@ -132,7 +131,7 @@ times = 20 表示调用 20 次 update，才会有一次真正的更新
 ```js
 // data, animation, times, canvas
 
-var material = new Frame(data, "walk", 20, canvas);
+var material = new Frame(data, "forward", 20, canvas);
 ```
 
 ### 属性
@@ -159,7 +158,7 @@ var material = new Frame(data, "walk", 20, canvas);
 
 
 ```js
-var material = new Frame(data, "walk", 20, canvas);
+var material = new Frame(data, "forward", 20, canvas);
 
 material
     .onFrame(function(i){
@@ -184,8 +183,8 @@ setInterval(()=> {
 ```js
 var track = new Track(canvas);
 
-var material1 = new Frame(data, 'walk'),
-    material2 = new Frame(data, 'fly');
+var material1 = new Frame(data, 'forward'),
+    material2 = new Frame(data, 'back');
 
 track.add([material1, material2]);
 
