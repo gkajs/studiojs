@@ -13,8 +13,6 @@
 
 # studiojs
 
----
-
 [studiojs](https://github.com/joeyguo/studiojs) 是一款专注于帧动画的、简单的、渐进式的 2D 渲染引擎。
 
 主要包含类： Frame、Track、Stage。 可独立使用、组合使用。
@@ -25,9 +23,7 @@
 
 Frame 是帧动画的基础单位，声明帧动画的播放内容。
 
-示例:
-
-使用 Frame 播放单个帧动画
+示例: 使用 Frame 播放单个帧动画
 
 ```js
 var Frame = studiojs.Frame,
@@ -42,11 +38,12 @@ var data = {
         // etc.
     ],
     animations: {
-        walk: ["0-24"]
+        forward: ["0-24"],
+        back: ["24-0"],
     }
 };
 
-var material = new Frame(data, "walk", 20, canvas);
+var material = new Frame(data, "forward", 20, canvas);
 
 setInterval(()=> {
     material.update();
@@ -54,21 +51,21 @@ setInterval(()=> {
 
 ```
 
-![frame](./docs/img/frame.gif)
+![frame](./docs/img/frame.gif)   [示例完整代码](./example/frame-sprites)
+
+
 
 # Track
 
 轨道，能够加入多个 Frame，使其排队顺序播放
 
-示例：
-
-使用 Track + Frame 顺序排队播放多个帧动画
+示例： 使用 Track + Frame 顺序排队播放多个帧动画
 
 ```js
 var track = new Track(canvas);
 
-var material1 = new Frame(data, 'walk'),
-    material2 = new Frame(data, 'fly');
+var material1 = new Frame(data, 'forward'),
+    material2 = new Frame(data, 'back');
 
 track.add([material1, material2]);
 
@@ -77,15 +74,13 @@ setInterval(()=> {
 }, 16);
 
 ```
-![track](./docs/img/track.gif)
+![track](./docs/img/track.gif)  [示例完整代码](./example/track-sprites)
 
 # Stage
 
 舞台，能够包含多个 Track，各个 Track 并列播放, 合并展示
 
-示例：
-
-使用 Stage + Track + Frame 并列播放 Track
+示例： 使用 Stage + Track + Frame 并列播放 Track
 
 ```js
 var stage = new Stage(canvas)
@@ -104,4 +99,16 @@ setInterval(()=> {
 }, 16);
 
 ```
-![stage](./docs/img/stage.gif)
+![stage](./docs/img/stage.gif)  [示例完整代码](./example/track-sprites)
+
+# Welcome
+
+* 欢迎 Pull requests、Issues 一般在24小时内处理
+* 讨论与咨询请+QQ 3201590286  :D
+
+# License
+
+[MIT](./LICENSE) 
+
+Copyright (c) 2017 - present, joeyguo
+
