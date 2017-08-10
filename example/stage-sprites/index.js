@@ -1,14 +1,21 @@
-var Frames = studiojs.Frames;
+var Frame = studiojs.Frame,
+    Track = studiojs.Track,
+    Stage = studiojs.Stage;
+
 var canvas = document.getElementById('myCanvas');
+var stage  = new Stage(canvas),
+    track1 = new Track(),
+    track2 = new Track();
+
+stage.add([track1, track2]);
 
 var img = new Image();
 
 img.onload = () => {
 
-    var animationData = {
+    var data = {
         images: [img],
         frames: [
-            // x, y, width, height, offX, offY ,imageIndex
             [355, 0, 86, 282, 34, 9],
             [853, 276, 79, 276, 37, 9],
             [853, 552, 79, 276, 35, 7],
@@ -36,25 +43,39 @@ img.onload = () => {
             [0, 283, 123, 286, 17, 5]
         ],
         animations: {
-            walk: ["0-24"]
+            walk: ["0-24"],
+            back: ["24-0"],
         }
     };
 
-    // data, animation, count, canvas
-    var material = new Frames(animationData, "walk", 20, canvas);
+    var material1 = new Frame(data, "walk", 20);
+    var material2 = new Frame(data, "back", 20);
 
-    material
+    material1
         .onFrame(function(i){
-            console.log("frame");
-        })
-        .onEnd(function(){
-            console.log("end");
+            console.log("material1");
         });
 
-    setInterval(()=> {
-        material.update();
-    }, 16);
+    material2
+        .onFrame(function(i){
+            console.log("material2");
+        });
+        
+    track1.add(material1);
+    track1.add(material2);
 
-};
+    var material3 = new Frame(data, "walk", 20);
+    var material4 = new Frame(data, "back", 20);
+
+    material3.x = 40;
+    material4.x = 40;
+
+    track2.add(material3);
+    track2.add(material4);
+
+    setInterval(()=> {
+        stage.update();
+    }, 16);
+}
 
 img.src = "img/sprites.png";

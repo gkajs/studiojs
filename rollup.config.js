@@ -18,8 +18,7 @@ let licensePlugin = license({
 });
 
 let config = {
-  entry: 'src/index2.js',
-  // entry: 'src/index.js',
+  entry: 'src/studiojs.js',
   format:'umd',
   moduleName:'studiojs',
   plugins: [

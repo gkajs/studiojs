@@ -16,15 +16,23 @@ export function formateAni(anis) {
     var res = [], arr, start, end;
 
     for (var i = 0; i < anis.length; i++) {
-        arr = String(anis[i]).split("-"),
-        start = arr[0],
-        end = arr[1] === undefined? arr[0]: arr[1];
+        arr = String(anis[i]).split("-");
+        arr[1] = arr[1] === undefined? arr[0]: arr[1];
+
+        start = arr[0];
+        end = arr[1];
 
         if (isNaN(start)) {
             res.push(start);
         } else {
-            for (var j = Number(start); j <= Number(end); j++) {
-                res.push(j);
+            if (start <= end) {
+                for (var j = Number(start); j <= Number(end); j++) {
+                    res.push(j);
+                }
+            } else {
+                for (var j = Number(start); j >= Number(end); j--) {
+                    res.push(j);
+                }
             }
         }
     }

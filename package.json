@@ -7,7 +7,7 @@
     "track",
     "frame"
   ],
-  "main": "index.js",
+  "main": "./src/studiojs.js",
   "scripts": {
     "dev": "rollup -c",
     "dist": "rollup -c"

@@ -30,7 +30,8 @@ class Track {
 
     update(isIgnoreFps) {
         var curM = this.curM = this.curM || this.materials[0];
-
+        // console.log(curM)
+        // console.log(curM.isEnd)
         if (!curM) { return };
         if (curM.isEnd) {
             var next = this.getNext();

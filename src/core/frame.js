@@ -1,8 +1,8 @@
 import Event from  './event.js'
-import loadImage from  './loadImage.js'
+import loadImage from  '../loadImage.js'
 import { isArray, formateAni, formateAniObj } from  './utils.js'
 
-class Frames extends Event {
+class Frame extends Event {
     constructor(data, type, fps, canvas) {
         super();
 
@@ -61,7 +61,6 @@ class Frames extends Event {
                     height: f[3],
                 });
             }
-
         } else {
 
             // 单图，或 设置 frame: {width: height:} 的元素大小一致的合图
@@ -115,10 +114,6 @@ class Frames extends Event {
             }
         }
         
-        // console.log(this.actIndex + 1)
-        // console.log(this.actIndex + 1 > this.animation.length - 1)
-        // 播完当前动画
-
         if (this.actIndex + 1 > this.animation.length - 1) {
             this.isEnd = true;
             return this;
@@ -126,11 +121,6 @@ class Frames extends Event {
 
         ++this.actIndex;
         
-        // console.log("p-----")
-        // console.log(actIndex)
-        // console.log(actIndex > this.animation.length - 1)
-        // console.log(this.animation.length - 1)
-
         return this.draw(this);
     }
 
@@ -149,7 +139,6 @@ class Frames extends Event {
 
         var actIndex = --this.actIndex;
         
-        // 到最后
         if (actIndex < 0) {
             return this;
         }
@@ -174,20 +163,6 @@ class Frames extends Event {
 
         var curMM = m;
 
-        // console.log("--------actIndex")
-        // console.log(actIndex)
-        // console.log(m.id)
-        if (actIndex === 0) {
-            // console.log("start")
-            curM.trigger("start", curM)
-        } else if (actIndex === curM.animation.length - 1){
-            // console.log("end")
-            curM.trigger("end", curM)
-        } else {
-            // console.log("frame")
-            curM.trigger("frame", actIndex, curM)
-        }
-
         var obj = curMM.sources[acitveOne];
         var source = obj.source,
             loc = obj.loc;
@@ -200,7 +175,7 @@ class Frames extends Event {
             y: (curM.y || 0),
             width: (obj.width * (curM.scale || 1)),
             height: (obj.height * (curM.scale || 1)),
-        }
+        };
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
        
@@ -215,7 +190,6 @@ class Frames extends Event {
         var _offY = (curM.y || 0) + (loc.offY || 0);
 
         ctx.drawImage(source, (loc.x || 0), (loc.y || 0), obj.width, obj.height, _offX, _offY, (obj.width * (curM.scale || 1)), (obj.height * (curM.scale || 1)));
-        // this.canvas.ctx.drawImage(source, loc.x, loc.y, obj.width, obj.height, (curM.x || 0), (curM.y || 0), (obj.width * (curM.scale || 1)), (obj.height * (curM.scale || 1)));
         
         if (curM.flip === "horizintal") {
             ctx.translate(canvas.width, 0);
@@ -224,15 +198,25 @@ class Frames extends Event {
 
         this.curM = curM;
 
+        if (actIndex === 0) {
+            curM.trigger("start", curM);
+        }
+
+        curM.trigger("frame", actIndex, curM);
+        
+        if (actIndex === curM.animation.length - 1){
+            curM.trigger("end", curM);
+        }
+        
         return this;
     }
 
     clear(type, callback){
         this.trigger("clear", this);
-        this.animation = []; // 制空则跳过
+        this.animation = []; 
         return this;
     }
 
 }
 
-export default Frames
+export default Frame

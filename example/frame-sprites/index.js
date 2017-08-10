@@ -1,8 +1,5 @@
-var Track = studiojs.Track,
-    Frame = studiojs.Frame;
-
+var Frame = studiojs.Frame;
 var canvas = document.getElementById('myCanvas');
-var track = new Track(0, canvas);
 
 var img = new Image();
 
@@ -11,6 +8,7 @@ img.onload = () => {
     var data = {
         images: [img],
         frames: [
+            // x, y, width, height, offX, offY ,imageIndex
             [355, 0, 86, 282, 34, 9],
             [853, 276, 79, 276, 37, 9],
             [853, 552, 79, 276, 35, 7],
@@ -38,30 +36,25 @@ img.onload = () => {
             [0, 283, 123, 286, 17, 5]
         ],
         animations: {
-            walk: ["0-24"],
-            back: ["24-0"],
+            walk: ["0-24"]
         }
     };
 
-    var material1 = new Frame(data, "walk", 20);
-    var material2 = new Frame(data, "back", 20);
+    // data, animation, count, canvas
+    var material = new Frame(data, "walk", 20, canvas);
 
-    material1
+    material
         .onFrame(function(i){
-            console.log("material1");
+            console.log("frame");
+        })
+        .onEnd(function(){
+            console.log("end");
         });
-
-    material2
-        .onFrame(function(i){
-            console.log("material2");
-        });
-        
-    track.add(material1);
-    track.add(material2);
 
     setInterval(()=> {
-        track.update();
+        material.update();
     }, 16);
-}
+
+};
 
 img.src = "img/sprites.png";
