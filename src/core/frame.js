@@ -3,7 +3,7 @@ import loadImage from  '../loadImage.js'
 import { isArray, formateAni, formateAniObj } from  './utils.js'
 
 class Frame extends Event {
-    constructor(data, type, fps, canvas) {
+    constructor(data, type, times, canvas) {
         super();
 
         var {
@@ -15,7 +15,7 @@ class Frame extends Event {
 
         this.animations = animations;
         this.animation = (animations && animations[type]) || [`0-${images.length - 1}`];
-        this.fps = fps;
+        this.times = times;
 
         this.animation = formateAni(this.animation || []);
         this.animations = formateAniObj(this.animations || {});
@@ -40,7 +40,7 @@ class Frame extends Event {
             this.canvas.ctx = canvas.getContext('2d');
         }
         
-        this.times = 0;
+        this.count = 0;
     }
 
     formate(images, frames = {}) {
@@ -101,16 +101,16 @@ class Frame extends Event {
         return sources;
     }
 
-    update(isIgnoreFps) {
+    update(isIgnoreTimes) {
         if (!this.isReady) { return; }
         
-        if (!isIgnoreFps) {
-            ++this.times;
+        if (!isIgnoreTimes) {
+            ++this.count;
 
-            if (this.times < (60 / this.fps)) {
+            if (this.count < this.times) {
                 return this;
             } else {
-                this.times = 0;
+                this.count = 0;
             }
         }
         
@@ -124,16 +124,16 @@ class Frame extends Event {
         return this.draw(this);
     }
 
-    prev(isIgnoreFps){
+    prev(isIgnoreTimes){
         if (!this.isReady) { return; }
 
-        if (!isIgnoreFps) {
-            ++this.times;
+        if (!isIgnoreTimes) {
+            ++this.count;
 
-            if (this.times < (60 / this.fps)) {
+            if (this.count < this.times) {
                 return this;
             } else {
-                this.times = 0;
+                this.count = 0;
             }
         }
 
