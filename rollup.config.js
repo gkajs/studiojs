@@ -43,13 +43,13 @@ let config = {
 
 config.plugins.push(licensePlugin);
 if(ENV === 'dist') {
-  // config.plugins.push(uglify());
+  config.plugins.push(uglify());
   config.dest = 'dist/studiojs.min.js';
 } else if(ENV==='dev') {
   config.dest = 'dist/studiojs.min.js'; // studiojs
 } else {
-  config.entry = 'example/'+ENV+'/index.js';
-  config.dest = 'example/'+ENV+'/main.js';
+  // config.entry = 'example/'+ENV+'/index.js';
+  // config.dest = 'example/'+ENV+'/main.js';
 }
 
 export default config
