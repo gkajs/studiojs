@@ -36,12 +36,12 @@ img.onload = () => {
             [0, 283, 123, 286, 17, 5]
         ],
         animations: {
-            walk: ["0-24"]
+            forward: ["0-24"]
         }
     };
 
     // data, animation, count, canvas
-    var material = new Frame(data, "walk", 20, canvas);
+    var material = new Frame(data, "forward", 20, canvas);
 
     material
         .onFrame(function(i){

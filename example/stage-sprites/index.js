@@ -43,12 +43,12 @@ img.onload = () => {
             [0, 283, 123, 286, 17, 5]
         ],
         animations: {
-            walk: ["0-24"],
+            forward: ["0-24"],
             back: ["24-0"],
         }
     };
 
-    var material1 = new Frame(data, "walk", 20);
+    var material1 = new Frame(data, "forward", 20);
     var material2 = new Frame(data, "back", 20);
 
     material1
@@ -64,7 +64,7 @@ img.onload = () => {
     track1.add(material1);
     track1.add(material2);
 
-    var material3 = new Frame(data, "walk", 20);
+    var material3 = new Frame(data, "forward", 20);
     var material4 = new Frame(data, "back", 20);
 
     material3.x = 40;
