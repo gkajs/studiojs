@@ -1,9 +1,10 @@
 {
   "name": "studiojs",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.0.2",
+  "description": "2d rendering engine Focuses on Keyframes Animation",
   "keywords": [
     "studio",
+    "rendering",
     "track",
     "frame"
   ],
