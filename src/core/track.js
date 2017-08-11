@@ -1,7 +1,7 @@
-import { createCanvas } from  './utils.js'
+import { isArray, createCanvas } from  './utils.js'
 
 class Track {
-    constructor(zIndex, canvas) {
+    constructor(canvas, zIndex) {
         this._id = 0;
         this.zIndex = zIndex || 0;
         this.isEnable = true;
@@ -16,22 +16,25 @@ class Track {
 
     // index 基于未播放的内容队列
     add(material, index){
+        var materials = isArray(material)? material: [material];
+        materials.map(item => {
+            item.id = this._id++;
+            item.track = this;
 
-        material.id = this._id++;
-        material.track = this;
+            // 为 material 重置 canvas，使其不会具体画出来
+            item.canvas = createCanvas(this.canvas.width, this.canvas.height);
 
-        material.canvas = createCanvas(this.canvas.width, this.canvas.height);
-
-        var i = (index !== undefined)? (this.getMIndex(this.curM) + index + 1): this.materials.length;
-        // console.log(i)
-        this.materials.splice(i, 0, material);
+            var i = (index !== undefined)? (this.getMIndex(this.curM) + index + 1): this.materials.length;
+            // console.log(i)
+            this.materials.splice(i, 0, item);
+        })
+        
         return material;
     }
 
-    update(isIgnoreFps) {
+    update(isIgnoreTimes) {
         var curM = this.curM = this.curM || this.materials[0];
-        // console.log(curM)
-        // console.log(curM.isEnd)
+
         if (!curM) { return };
         if (curM.isEnd) {
             var next = this.getNext();
@@ -43,11 +46,11 @@ class Track {
             return;
         }
 
-        var m = curM.update(isIgnoreFps);
+        var m = curM.update(isIgnoreTimes);
         return this.draw(m.canvas);
     }
 
-    prev(isIgnoreFps){
+    prev(isIgnoreTimes){
         var curM = this.curM = this.curM || this.materials[0];
 
         if (curM.actIndex <= 0) {
