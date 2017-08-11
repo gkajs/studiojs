@@ -65,8 +65,7 @@ setInterval(()=> {
 
 ```
 
-![frame](./docs/img/frame.gif)   [在线浏览](https://gkajs.github.io/studiojs/example/frame-sprites/)
-[示例完整代码](./example/frame-sprites)、[使用gka一键生成示例代码](./example/gka-data-frame)
+![frame](./docs/img/frame.gif)   [在线预览](https://gkajs.github.io/studiojs/example/frame-sprites/)、[源代码](https://github.com/gkajs/studiojs/tree/master/example/frame-sprites)、[gka生成的源代码](https://github.com/gkajs/studiojs/tree/master/example/gka-data-frame)
 
 ## Track
 
@@ -87,9 +86,7 @@ setInterval(()=> {
 }, 16);
 
 ```
-![track](./docs/img/track.gif)  [在线浏览](https://gkajs.github.io/studiojs/example/track-sprites/)
-
-[示例完整代码](./example/track-sprites)
+![track](./docs/img/track.gif)  [在线浏览](https://gkajs.github.io/studiojs/example/track-sprites/)、[源代码](https://github.com/gkajs/studiojs/tree/master/example/track-sprites)
 
 ## Stage
 
@@ -114,9 +111,7 @@ setInterval(()=> {
 }, 16);
 
 ```
-![stage](./docs/img/stage.gif)  [在线浏览](https://gkajs.github.io/studiojs/example/stage-sprites/)
-
-[示例完整代码](./example/track-sprites)
+![stage](./docs/img/stage.gif)  [在线浏览](https://gkajs.github.io/studiojs/example/stage-sprites/)、[源代码](https://github.com/gkajs/studiojs/tree/master/example/stage-sprites)
 
 # Welcome
 
