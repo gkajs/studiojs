@@ -13,14 +13,14 @@ class Stage extends Event {
     add(track){
         var tracks = isArray(track)? track: [track];
         tracks.map(item => {
-            // 为 track 重置一个 canvas，不会具体画出来
+            // 为 track 重置 canvas，使其不会具体画出来
             item.canvas = createCanvas(this.canvas.width, this.canvas.height);
             item.stage = this;
             this.tracks.push(item);
         })
     }
 
-    draw(type, isIgnoreFps){
+    draw(type, isIgnoreTimes){
         var tracks = this.tracks;
 
         for (var i = 0, tracksUpdated = [], len = tracks.length; i < len; i++) {
@@ -31,9 +31,9 @@ class Stage extends Event {
 
                 // 无调用 draw 则返回 0，有 draw 则返回新 track
                 if (type === "next") {
-                    newTrack = tracks[i].update(isIgnoreFps);
+                    newTrack = tracks[i].update(isIgnoreTimes);
                 } else if (type === "prev") {
-                    newTrack = tracks[i].prev(isIgnoreFps);
+                    newTrack = tracks[i].prev(isIgnoreTimes);
                 } else {
                     // draw 制定帧 type为数字
                     newTrack = tracks[i].to(type);
@@ -63,12 +63,12 @@ class Stage extends Event {
         }
     }
 
-    update(isIgnoreFps){
-        this.draw("next", isIgnoreFps);
+    update(isIgnoreTimes){
+        this.draw("next", isIgnoreTimes);
     }
     
-    prev(isIgnoreFps){
-        this.draw("prev", isIgnoreFps);
+    prev(isIgnoreTimes){
+        this.draw("prev", isIgnoreTimes);
     }
 
     get(type) {

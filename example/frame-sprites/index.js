@@ -41,7 +41,7 @@ img.onload = () => {
     };
 
     // data, animation, count, canvas
-    var material = new Frame(data, "forward", 3, canvas);
+    var material = new Frame(canvas, data, "forward", 3);
 
     material
         .onFrame(function(i){

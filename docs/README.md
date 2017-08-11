@@ -41,7 +41,7 @@ var data = {
     }
 };
 
-var material = new Frame(data, "forward", 20, canvas);
+var material = new Frame(canvas, data, "forward", 20);
 
 setInterval(()=> {
     material.update();
@@ -56,7 +56,7 @@ setInterval(()=> {
 ```js
 // data, animation, times, canvas
 
-var material = new Frame(data, "forward", 20, canvas);
+var material = new Frame(canvas, data, "forward", 20);
 ```
 
 ### 1. data
@@ -131,7 +131,7 @@ times = 20 表示调用 20 次 update，才会有一次真正的更新
 ```js
 // data, animation, times, canvas
 
-var material = new Frame(data, "forward", 20, canvas);
+var material = new Frame(canvas, data, "forward", 20);
 ```
 
 ### 属性
@@ -158,7 +158,7 @@ var material = new Frame(data, "forward", 20, canvas);
 
 
 ```js
-var material = new Frame(data, "forward", 20, canvas);
+var material = new Frame(canvas, data, "forward", 20);
 
 material
     .onFrame(function(i){
@@ -220,6 +220,9 @@ var track = new Track(canvas);
 ```
 ### 方法
 
+- **.add(material)**
+    添加 material (frame) 到 track 队列中
+
 - **.update()**
     播放下一帧
 
@@ -271,6 +274,9 @@ var stage = new Stage(canvas);
 var stage = new Stage(canvas);
 ```
 ### 方法
+
+- **.add(track)**
+    添加 track 到 stage
 
 - **.update()**
     播放下一帧

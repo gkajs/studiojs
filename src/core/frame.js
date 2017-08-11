@@ -3,7 +3,7 @@ import loadImage from  '../loadImage.js'
 import { isArray, formateAni, formateAniObj } from  './utils.js'
 
 class Frame extends Event {
-    constructor(data, type, times, canvas) {
+    constructor(canvas, data, type, times) {
         super();
 
         var {

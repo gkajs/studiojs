@@ -2,7 +2,7 @@ var Track = studiojs.Track,
     Frame = studiojs.Frame;
 
 var canvas = document.getElementById('myCanvas');
-var track = new Track(0, canvas);
+var track = new Track(canvas);
 
 var img = new Image();
 
@@ -43,8 +43,8 @@ img.onload = () => {
         }
     };
 
-    var material1 = new Frame(data, "forward", 3);
-    var material2 = new Frame(data, "back", 3);
+    var material1 = new Frame(null, data, "forward", 3);
+    var material2 = new Frame(null, data, "back", 3);
 
     material1
         .onFrame(function(i){
@@ -56,8 +56,7 @@ img.onload = () => {
             console.log("material2");
         });
         
-    track.add(material1);
-    track.add(material2);
+    track.add([material1, material2]);
 
     setInterval(()=> {
         track.update();

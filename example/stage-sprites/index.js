@@ -48,8 +48,8 @@ img.onload = () => {
         }
     };
 
-    var material1 = new Frame(data, "forward", 3);
-    var material2 = new Frame(data, "back", 3);
+    var material1 = new Frame(null, data, "forward", 3);
+    var material2 = new Frame(null, data, "back", 3);
 
     material1
         .onFrame(function(i){
@@ -61,17 +61,15 @@ img.onload = () => {
             console.log("material2");
         });
         
-    track1.add(material1);
-    track1.add(material2);
+    track1.add([material1, material2]);
 
-    var material3 = new Frame(data, "forward", 3);
-    var material4 = new Frame(data, "back", 3);
+    var material3 = new Frame(null, data, "forward", 3);
+    var material4 = new Frame(null, data, "back", 3);
 
     material3.x = 40;
     material4.x = 40;
 
-    track2.add(material3);
-    track2.add(material4);
+    track2.add([material3, material4]);
 
     setInterval(()=> {
         stage.update();
