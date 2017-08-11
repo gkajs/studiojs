@@ -21,7 +21,19 @@
 
 推荐使用 gka 一键生成数据，[gka](https://github.com/gkajs/gka)、[gka-tpl-studiojs](https://github.com/gkajs/gka-tpl-studiojs) 
 
-# Frame
+# Install
+
+```
+npm install studiojs
+```
+
+or use CDN 
+
+- https://unpkg.com/studiojs/dist/studiojs.min.js
+
+# Usage
+
+## Frame
 
 Frame 是帧动画的基础单位，声明帧动画的播放内容。
 
@@ -53,11 +65,9 @@ setInterval(()=> {
 
 ```
 
-![frame](./docs/img/frame.gif)   [示例完整代码](./example/frame-sprites)
+![frame](./docs/img/frame.gif)   [示例完整代码](./example/frame-sprites)、[使用gka一键生成示例代码](./example/gka-data-frame)
 
-[使用gka一键生成示例代码](./example/gka-data-frame)
-
-# Track
+## Track
 
 轨道，能够加入多个 Frame，使其排队顺序播放
 
@@ -78,7 +88,7 @@ setInterval(()=> {
 ```
 ![track](./docs/img/track.gif)  [示例完整代码](./example/track-sprites)
 
-# Stage
+## Stage
 
 舞台，能够包含多个 Track，各个 Track 并列播放, 合并展示
 
