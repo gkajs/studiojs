@@ -1,21 +1,11 @@
-<p align="center">
-<a href ="https://github.com/joeyguo/studiojs"><img alt="studiojs" src="./studiojs.png"></a>
-</p>
-<p align="center">
-简单的、渐进式的 2D 渲染引擎(专注于帧动画)
-</p>
-<p align="center">
-<a href="https://www.npmjs.org/package/studiojs"><img src="https://img.shields.io/npm/v/studiojs.svg?style=flat"></a>
-<a href="https://github.com/joeyguo/studiojs#license"><img src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
-</p>
-
---- 
 
 # studiojs
 
 [studiojs](https://github.com/joeyguo/studiojs) 是一款专注于帧动画的、简单的、渐进式的 2D 渲染引擎。
 
 主要包含类： Frame、Track、Stage。 可独立使用、组合使用。
+
+# API 文档
 
 # Frame
 
@@ -48,8 +38,6 @@ setInterval(()=> {
 }, 16);
 
 ```
-
-# API 文档
 
 ## 实例化一个 Frame
 
