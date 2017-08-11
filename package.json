@@ -1,6 +1,6 @@
 {
   "name": "studiojs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "2d rendering engine Focuses on Keyframes Animation",
   "keywords": [
     "studio",
@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/joeyguo/studiojs.git"
+    "url": "git://github.com/gkajs/studiojs.git"
   },
   "author": "joeyguo",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/joeyguo/studiojs/issues"
+    "url": "https://github.com/gkajs/studiojs/issues"
   },
-  "homepage": "https://github.com/joeyguo/studiojs",
+  "homepage": "https://github.com/gkajs/studiojs",
   "dependencies": {},
   "devDependencies": {
     "cssnano": "^3.9.1",

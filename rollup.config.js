@@ -41,9 +41,9 @@ let config = {
   ],
 };
 
-config.plugins.push(licensePlugin);
 if(ENV === 'dist') {
   config.plugins.push(uglify());
+  config.plugins.push(licensePlugin);
   config.dest = 'dist/studiojs.min.js';
 } else if(ENV==='dev') {
   config.dest = 'dist/studiojs.min.js'; // studiojs
