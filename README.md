@@ -19,6 +19,8 @@
 
 查看 [API 使用文档](./docs/README.md)
 
+推荐使用 gka 一键生成数据，[gka](https://github.com/gkajs/gka)、[gka-tpl-studiojs](https://github.com/gkajs/gka-tpl-studiojs) 
+
 # Frame
 
 Frame 是帧动画的基础单位，声明帧动画的播放内容。
@@ -53,7 +55,7 @@ setInterval(()=> {
 
 ![frame](./docs/img/frame.gif)   [示例完整代码](./example/frame-sprites)
 
-
+[使用gka一键生成示例代码](./example/gka-data-frame)
 
 # Track
 
