@@ -51,16 +51,6 @@ img.onload = () => {
     var material1 = new Frame(null, data, "forward", 3);
     var material2 = new Frame(null, data, "back", 3);
 
-    material1
-        .onFrame(function(i){
-            console.log("material1");
-        });
-
-    material2
-        .onFrame(function(i){
-            console.log("material2");
-        });
-        
     track1.add([material1, material2]);
 
     var material3 = new Frame(null, data, "forward", 3);
